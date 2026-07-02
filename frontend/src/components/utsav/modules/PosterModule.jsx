@@ -16,7 +16,7 @@ export function PosterModule({ event, onUpdate }) {
       onUpdate?.({ ...event, posterUrl: data.posterUrl });
       toast.success("Poster ready! Kitna sundar laga?");
     } catch (e) {
-      toast.error(e?.response?.data?.detail || "Poster generation failed — try again.");
+      toast.error(e?.response?.data?.detail || "Poster generation failed. Try again.");
     } finally {
       setGenerating(false);
     }

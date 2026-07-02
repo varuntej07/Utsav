@@ -86,7 +86,7 @@ function SliderInput({ card, value, onChange, isBudget }) {
           {isBudget ? formatINRCompact(current) : current}
         </span>
         <span className="text-xs text-muted-foreground">
-          {isBudget ? `${formatINRCompact(min)} – ${formatINRCompact(max)}` : `${min} – ${max}`}
+          {isBudget ? `${formatINRCompact(min)} - ${formatINRCompact(max)}` : `${min} - ${max}`}
         </span>
       </div>
       <Slider

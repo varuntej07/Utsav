@@ -1,4 +1,4 @@
-"""Utsav vendor lookup — Google Places API (New) with Mongo cache + seeded fallback."""
+"""Utsav vendor lookup: Google Places API (New) with Mongo cache + seeded fallback."""
 import logging
 import os
 import uuid
@@ -32,22 +32,22 @@ CATEGORY_QUERIES = {
 }
 
 PRICE_RANGES = {
-    "caterer": "₹800–1,500 / plate",
-    "decorator": "₹50,000–3,00,000",
-    "pandit": "₹5,100–21,000",
-    "photographer": "₹50,000–2,00,000",
-    "dj": "₹15,000–75,000",
-    "mehndi_artist": "₹5,000–25,000",
-    "banquet_hall": "₹1,00,000–5,00,000",
-    "farmhouse": "₹40,000–1,50,000 / day",
-    "makeup_artist": "₹15,000–60,000",
-    "venue": "₹75,000–4,00,000",
-    "florist": "₹15,000–80,000",
-    "cake": "₹1,500–15,000",
-    "band": "₹20,000–80,000",
-    "tent_house": "₹30,000–2,00,000",
+    "caterer": "₹800-1,500 / plate",
+    "decorator": "₹50,000-3,00,000",
+    "pandit": "₹5,100-21,000",
+    "photographer": "₹50,000-2,00,000",
+    "dj": "₹15,000-75,000",
+    "mehndi_artist": "₹5,000-25,000",
+    "banquet_hall": "₹1,00,000-5,00,000",
+    "farmhouse": "₹40,000-1,50,000 / day",
+    "makeup_artist": "₹15,000-60,000",
+    "venue": "₹75,000-4,00,000",
+    "florist": "₹15,000-80,000",
+    "cake": "₹1,500-15,000",
+    "band": "₹20,000-80,000",
+    "tent_house": "₹30,000-2,00,000",
 }
-DEFAULT_PRICE = "₹10,000–1,00,000"
+DEFAULT_PRICE = "₹10,000-1,00,000"
 
 CATEGORY_LABELS = {
     "caterer": "Caterers", "decorator": "Decorators", "pandit": "Pandits",

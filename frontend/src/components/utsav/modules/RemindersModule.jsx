@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { API, formatDateLong } from "@/lib/utsav";
 
 export function RemindersModule({ event, onUpdate }) {
@@ -53,6 +53,7 @@ export function RemindersModule({ event, onUpdate }) {
           <DialogContent className="bg-white sm:max-w-md">
             <DialogHeader>
               <DialogTitle className="font-display">New reminder</DialogTitle>
+              <DialogDescription>Set a nudge so nothing slips before the big day.</DialogDescription>
             </DialogHeader>
             <div className="flex flex-col gap-3">
               <Input data-testid="reminder-text-input" value={text} onChange={(e) => setText(e.target.value)} placeholder="e.g. Final headcount to caterer" className="h-11 rounded-xl" />
@@ -68,7 +69,7 @@ export function RemindersModule({ event, onUpdate }) {
       {reminders.length === 0 ? (
         <div className="flex flex-col items-center gap-2 py-6 text-center">
           <BellRing size={22} className="text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">No reminders yet — add nudges so nothing slips.</p>
+          <p className="text-sm text-muted-foreground">No reminders yet. Add nudges so nothing slips.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-1">

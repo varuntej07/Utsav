@@ -11,7 +11,7 @@ export function TimelineModule({ plan }) {
       <div className="flex flex-col">
         {plan.timeline.map((t, i) => {
           const gcal = calendarLink({
-            title: `${t.emoji || ""} ${t.function} — ${plan.title}`.trim(),
+            title: `${t.emoji || ""} ${t.function} | ${plan.title}`.trim(),
             date: t.date || plan.date,
             time: t.time,
             details: t.description,

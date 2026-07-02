@@ -18,7 +18,7 @@ export function StickyShareBar({ event }) {
   function copyLink() {
     navigator.clipboard
       .writeText(eventUrl(event.slug))
-      .then(() => toast.success("Link copied — share away!"))
+      .then(() => toast.success("Link copied. Share away!"))
       .catch(() => toast.error("Could not copy link"));
   }
 

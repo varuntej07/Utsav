@@ -1,9 +1,9 @@
-// Utsav shared helpers — API base, INR formatting, share-link builders
+// Utsav shared helpers: API base, INR formatting, share-link builders
 export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
 
 export function formatINR(n) {
-  if (n === null || n === undefined || isNaN(n)) return "₹—";
+  if (n === null || n === undefined || isNaN(n)) return "-";
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
@@ -12,7 +12,7 @@ export function formatINR(n) {
 }
 
 export function formatINRCompact(n) {
-  if (n === null || n === undefined || isNaN(n)) return "₹—";
+  if (n === null || n === undefined || isNaN(n)) return "-";
   if (n >= 1e7) return `₹${(n / 1e7).toFixed(n % 1e7 === 0 ? 0 : 1)} Cr`;
   if (n >= 1e5) return `₹${(n / 1e5).toFixed(n % 1e5 === 0 ? 0 : 1)} L`;
   if (n >= 1e3) return `₹${(n / 1e3).toFixed(0)}k`;

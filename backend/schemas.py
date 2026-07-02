@@ -1,4 +1,4 @@
-"""Utsav JSON contract schemas — validated Gemini agent output + API models."""
+"""Utsav JSON contract schemas: validated Gemini agent output + API models."""
 from typing import List, Literal, Optional
 from pydantic import BaseModel, ConfigDict, model_validator
 
@@ -28,6 +28,25 @@ class ClarifyingCard(BaseModel):
     min: Optional[float] = None
     max: Optional[float] = None
     step: Optional[float] = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def coerce(cls, v):
+        if isinstance(v, dict):
+            # Gemini sometimes returns options: null
+            if v.get("options") is None:
+                v["options"] = []
+            # Gemini sometimes puts date strings or junk in min/max/step
+            for key in ("min", "max", "step"):
+                val = v.get(key)
+                if val is not None and not isinstance(val, (int, float)):
+                    try:
+                        v[key] = float(val)
+                    except (TypeError, ValueError):
+                        v[key] = None
+            if v.get("icon") is None:
+                v["icon"] = "sparkles"
+        return v
 
 
 class TimelineItem(BaseModel):

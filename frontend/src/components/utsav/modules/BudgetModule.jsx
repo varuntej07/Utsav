@@ -64,7 +64,7 @@ export function BudgetModule({ event, onUpdate }) {
         <span className="text-sm font-semibold">Running total</span>
         <span className="text-lg font-bold text-[hsl(var(--primary))]">{formatINR(total)}</span>
       </div>
-      <p className="mt-1 text-[11px] text-muted-foreground">Tap +/− to adjust by ₹10,000. Indian numbering — lakhs & crores.</p>
+      <p className="mt-1 text-[11px] text-muted-foreground">Tap +/− to adjust by ₹10,000. Indian numbering in lakhs & crores.</p>
     </section>
   );
 }

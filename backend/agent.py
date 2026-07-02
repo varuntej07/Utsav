@@ -1,4 +1,4 @@
-"""Utsav Gemini planning agent — strict JSON contract, stateless transcript replay."""
+"""Utsav Gemini planning agent: strict JSON contract, stateless transcript replay."""
 import json
 import logging
 import os
@@ -46,31 +46,38 @@ CRITICAL OUTPUT RULE: You MUST respond with ONLY a single valid JSON object. No 
 }}
 
 RULES:
-1. FIRST TURN after user describes event: set phase="clarifying", detect eventType, return 3-5 clarifyingCards for ONLY the missing critical info. Event-type-aware questions:
-   - wedding: functions (multiselect: Roka/Haldi/Mehndi/Sangeet/Wedding/Reception), region/tradition (chips), guest count (chips), budget tier (budget), date (date), veg/non-veg (chips)
+1. FIRST TURN after user describes event: set phase="clarifying", detect eventType, return 3-5 clarifyingCards for ONLY the missing critical info. Think like a real Indian event planner: ask whatever is ESSENTIAL for THIS event type. Dimensions to consider (pick the 3-5 most important missing ones):
+   - Universal: guest count (chips), date (date), city/location (chips), budget tier (budget)
+   - Food: veg / non-veg / Jain / both (chips); live counters or plated (chips)
+   - Drinks: alcohol/bar or no-alcohol, mocktails, thandai (chips or toggle)
+   - wedding: functions (multiselect: Roka/Haldi/Mehndi/Sangeet/Wedding/Reception), region/tradition (chips: North Indian/South Indian/Bengali/Punjabi/Marwari/Gujarati/Maharashtrian), baraat with dhol & band (toggle), guest count, budget, date, food preference
+   - haldi/mehndi/sangeet standalone: decor theme (chips), mehndi artist needed (toggle), dhol/DJ (toggle), guest count
    - naamkaran/annaprashan/mundan: date (date), pandit needed (toggle), guest count (chips), prasad/bhog preference (chips), keep baby details private or public on invite (toggle)
-   - griha_pravesh/housewarming: pooja type (chips), pandit (toggle), vastu muhurat timing (chips), guest count (chips)
-   - farmhouse_party: music/DJ (toggle), bar (toggle), overnight stay (toggle), guest count (chips), date (date)
-   - first_birthday/birthday_21: theme (chips), guest count (chips), venue type (chips), cake preference (chips)
+   - griha_pravesh/housewarming: pooja type (chips), pandit (toggle), vastu muhurat timing (chips), guest count (chips), catering or home-cooked (chips)
+   - farmhouse_party: music/DJ (toggle), bar/alcohol (toggle), overnight stay (toggle), guest count (chips), date (date), BBQ/food style (chips)
+   - first_birthday/birthday_21: theme (chips), guest count (chips), venue type (chips), cake preference (chips), games/entertainment (multiselect)
    - pooja: which pooja (chips), pandit (toggle), prasad (chips), guest count (chips)
    - kitty_party: theme (chips), games (multiselect), food style (chips)
-   - corporate: offsite type (chips), team size (chips), budget (budget), date (date)
+   - anniversary/engagement: intimate dinner or party (chips), guest count, venue type, cake/decor theme
+   - corporate: offsite type (chips), team size (chips), budget (budget), date (date), activities (multiselect)
+   NEVER ask something the user already told you.
    Use "chips" for single-select, "multiselect" for multiple, "budget" inputType for budget tiers, "slider" for numeric ranges, "toggle" for yes/no, "date"/"time" for date/time.
 2. If user did NOT mention a city, one card MUST ask for city/location (id="location", inputType="chips", icon="map-pin", options of 6 major Indian cities e.g. Delhi NCR, Mumbai, Bengaluru, Jaipur, Hyderabad, Pune).
-3. Options must ALWAYS be provided for chips/multiselect/budget/toggle (toggle: exactly 2 Yes/No style options). For slider provide min, max, step. Budget options must show INR labels like "₹2-5 Lakh".
+3. Options must ALWAYS be provided for chips/multiselect/budget/toggle (toggle: exactly 2 Yes/No style options). Budget options must show INR labels like "₹2-5 Lakh". For slider provide numeric min, max, step. For date/time cards: options MUST be [] and min/max/step MUST be null (never put dates or strings in min/max).
 4. AFTER user taps answers (they arrive as JSON of id:value pairs): if enough info collected (after 1, max 2 rounds of clarifying), set phase="complete" and return FULL eventPlan. Do NOT ask more than 2 rounds total.
 5. When phase="complete": eventPlan must be FULLY populated:
    - title (creative, festive, include names if given), emoji, description (2-3 warm sentences)
    - date (ISO YYYY-MM-DD, future), time, muhurat (if relevant to event type else null)
    - venueType, location (city user gave), budgetINR (realistic number), guestCount
-   - modules: pick relevant from ["timeline","vendors","guestlist","food","budget","checklist","reminders","poster"] — always include timeline, vendors, guestlist, food, budget, checklist, poster
-   - timeline: for multi-function events every function with EXACT keys: {{"function": "Haldi Ceremony", "date": "2026-12-09", "time": "10:00 AM", "muhurat": "Shubh Muhurat 10:15 AM", "description": "...", "emoji": "💛"}} — the name key MUST be "function". Single events get arrival/ceremony/food segments.
-   - budgetItems: 5-8 itemized realistic INR line items summing to ~budgetINR. EXACT keys: {{"item": "Catering", "amountINR": 400000, "category": "food"}} — the amount key MUST be "amountINR".
+   - modules: pick relevant from ["timeline","vendors","guestlist","food","budget","checklist","reminders","poster"]. Always include timeline, vendors, guestlist, food, budget, checklist, poster
+   - timeline: for multi-function events every function with EXACT keys: {{"function": "Haldi Ceremony", "date": "2026-12-09", "time": "10:00 AM", "muhurat": "Shubh Muhurat 10:15 AM", "description": "...", "emoji": "💛"}}. The name key MUST be "function". Single events get arrival/ceremony/food segments.
+   - budgetItems: 5-8 itemized realistic INR line items summing to ~budgetINR. EXACT keys: {{"item": "Catering", "amountINR": 400000, "category": "food"}}. The amount key MUST be "amountINR".
    - checklist: 6-10 event-specific task OBJECTS (pooja samagri, haldi supplies, etc.). EXACT keys: {{"task": "Book pandit ji", "category": "rituals", "done": false}}.
    - food: dietType + 5-8 menuSuggestions (regional-appropriate) + notes
    - vendorCategories: 4-7 relevant from: caterer, decorator, pandit, photographer, dj, mehndi_artist, banquet_hall, farmhouse, makeup_artist, venue, florist, cake, band, tent_house
 6. clarifyingCards MUST be [] when phase="complete". eventPlan MUST be null when phase="clarifying".
-7. assistantMessage: warm Hinglish tone, e.g. "Wah! Shaadi hai — bataiye, kaunse functions plan kar rahe hain?"
+7. assistantMessage: warm Hinglish tone, e.g. "Wah! Shaadi hai. Bataiye, kaunse functions plan kar rahe hain?"
+8. NEVER use the em-dash character in any text you generate (assistantMessage, titles, descriptions, tasks, notes). Use commas, colons or periods instead.
 
 OUTPUT ONLY THE JSON OBJECT."""
 
@@ -131,19 +138,25 @@ async def generate_poster_image(plan: dict) -> Optional[dict]:
     """Generate an event poster with Nano Banana. Returns {mime_type, data(base64)} or None."""
     title = plan.get("title", "Utsav Celebration")
     when = plan.get("date", "")
+    try:
+        from datetime import datetime as _dt
+        when = _dt.fromisoformat(when).strftime("%d %B %Y") if when else ""
+    except (ValueError, TypeError):
+        pass
     time_str = plan.get("time", "")
     location = plan.get("location", "")
     event_type = plan.get("eventType", plan.get("venueType", "celebration"))
     description = (plan.get("description") or "")[:200]
 
     prompt = (
-        f"Create a stunning premium Indian event invitation poster for a {event_type}. "
+        f"Create a MINIMAL, elegant Indian event invitation poster for a {event_type}. "
         f"Title text: '{title}'. Date: {when} {time_str}. Location: {location}. "
-        f"Context: {description}. "
-        "Style: festive yet elegant modern Indian design, marigold and saffron warm gradients, "
-        "deep maroon and antique gold accents, subtle mandala or floral motifs, clean typography, "
-        "premium wedding-card aesthetic, portrait orientation 3:4. "
-        "Include the title text and date elegantly and legibly. No watermarks."
+        "Style: clean modern minimalist design with generous negative space, soft warm cream or ivory background, "
+        "refined typography as the focal point, and just ONE small subtle accent motif (a thin-line marigold, diya or paisley). "
+        "Restrained saffron and deep maroon accent colors with a touch of gold. "
+        "STRICTLY AVOID: heavy ornamentation, busy mandala patterns, crowded borders, multiple illustrations, "
+        "large decorative elements, cluttered layouts. Keep it airy, premium and understated, like a high-end minimal wedding card. "
+        "Portrait orientation 3:4. Include only the title text and date, elegantly and legibly. No watermarks."
     )
 
     chat = LlmChat(

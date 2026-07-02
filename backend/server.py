@@ -1,4 +1,4 @@
-"""Utsav — AI-powered Indian event planner. FastAPI backend."""
+"""Utsav: AI-powered Indian event planner. FastAPI backend."""
 import base64
 import logging
 import os
@@ -121,7 +121,7 @@ class PotluckCreate(BaseModel):
 
 @api_router.get("/")
 async def root():
-    return {"message": "Utsav API — Bolo idea. Utsav banaye mehfil."}
+    return {"message": "Utsav API. Bolo idea, Utsav banaye mehfil."}
 
 
 @api_router.post("/chat")
@@ -145,7 +145,7 @@ async def chat(req: ChatRequest):
         turn = await run_agent_turn(transcript, user_input, force_complete=force_complete)
     except Exception as e:
         logger.error(f"Agent failure: {e}")
-        raise HTTPException(status_code=502, detail="Utsav AI thoda busy hai — please try again.")
+        raise HTTPException(status_code=502, detail="Utsav AI thoda busy hai. Please try again.")
 
     transcript.append({"role": "user", "content": user_input})
     transcript.append({"role": "assistant", "content": turn.model_dump_json()})
@@ -314,9 +314,9 @@ async def generate_poster(slug: str):
         img = await generate_poster_image(plan)
     except Exception as e:
         logger.error(f"Poster generation failed: {e}")
-        raise HTTPException(status_code=502, detail="Poster generation failed — please try again.")
+        raise HTTPException(status_code=502, detail="Poster generation failed. Please try again.")
     if not img:
-        raise HTTPException(status_code=502, detail="No image returned — please try again.")
+        raise HTTPException(status_code=502, detail="No image returned. Please try again.")
 
     ext = "png" if "png" in img.get("mime_type", "") else "jpg"
     filename = f"{slug}-{uuid.uuid4().hex[:6]}.{ext}"

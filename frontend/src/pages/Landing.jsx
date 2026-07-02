@@ -77,7 +77,7 @@ export default function Landing() {
             transition={{ delay: 0.1 }}
             className="mt-5 max-w-xl text-base sm:text-lg text-muted-foreground"
           >
-            Describe any celebration in one line — shaadi, pooja, birthday ya farmhouse party.
+            Describe any celebration in one line: shaadi, pooja, birthday ya farmhouse party.
             Utsav plans the timeline, vendors, budget, menu and a shareable invite page. No signup.
           </motion.p>
 
@@ -190,7 +190,7 @@ export default function Landing() {
         )}
 
         <footer className="mt-16 text-center text-xs text-muted-foreground">
-          Utsav — AI-powered event planning for every Indian celebration.
+          Utsav, AI-powered event planning for every Indian celebration.
         </footer>
       </div>
     </div>

@@ -25,7 +25,7 @@ export function VendorsModule({ event }) {
       setCategories(data.categories);
       setVendors(data.vendors);
     } catch {
-      toast.error("Vendors load nahi hue — try again.");
+      toast.error("Vendors load nahi hue. Try again.");
     } finally {
       setLoading(false);
     }
@@ -127,7 +127,7 @@ export function VendorsModule({ event }) {
         </div>
       )}
       <p className="mt-3 text-[11px] text-muted-foreground">
-        {vendors[0]?.source === "google_places" ? "Live results via Google Places" : "Curated suggestions — live lookup unavailable right now"}
+        {vendors[0]?.source === "google_places" ? "Live results via Google Places" : "Curated suggestions (live lookup unavailable right now)"}
       </p>
     </section>
   );

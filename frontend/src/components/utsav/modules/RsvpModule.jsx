@@ -40,9 +40,9 @@ export function RsvpModule({ event }) {
       setRsvps((r) => [data.rsvp, ...r]);
       setMyStatus(status);
       localStorage.setItem(`utsav_rsvp_${event.slug}`, status);
-      toast.success(status === "going" ? "Yay! Milte hain wahan \u{1F389}" : "RSVP saved — thank you!");
+      toast.success(status === "going" ? "Yay! Milte hain wahan \u{1F389}" : "RSVP saved. Thank you!");
     } catch {
-      toast.error("RSVP save nahi hua — try again.");
+      toast.error("RSVP save nahi hua. Try again.");
     } finally {
       setSubmitting(false);
     }

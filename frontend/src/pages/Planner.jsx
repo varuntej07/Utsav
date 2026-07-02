@@ -75,7 +75,7 @@ export default function Planner() {
         setCards(data.clarifyingCards || []);
       }
     } catch (e) {
-      const detail = e?.response?.data?.detail || "Utsav AI could not respond — please try again.";
+      const detail = e?.response?.data?.detail || "Utsav AI could not respond. Please try again.";
       toast.error(detail);
       setMessages((m) => [...m, { role: "assistant", text: "Oops, thoda network hiccup! Try sending that again." }]);
     } finally {
@@ -100,7 +100,7 @@ export default function Planner() {
       }
     });
     const summary = answersSummary(cards, answers);
-    sendTurn({ tappedAnswers: payload }, summary || "Done — aage badho!");
+    sendTurn({ tappedAnswers: payload }, summary || "Done, aage badho!");
   }
 
   function sendComposer() {
@@ -148,7 +148,7 @@ export default function Planner() {
           </span>
           <div>
             <p className="font-display text-lg font-bold leading-none">Utsav Planner</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Tap to answer — no forms, no typing details</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Tap to answer. No forms, no typing details</p>
           </div>
         </div>
       </header>

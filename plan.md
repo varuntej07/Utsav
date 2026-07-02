@@ -124,3 +124,12 @@
 - **Core UX:** user can go from idea → taps → complete event page in under ~60 seconds.
 - **No-auth sharing:** `/e/:slug` works on mobile; RSVP updates counts; WhatsApp/Maps/Calendar links function.
 - **Demo polish:** seeded wedding looks premium, loads fast, and every button works (including poster generation).
+
+---
+## STATUS UPDATE (post Phase 2)
+- Phase 1 POC: PASSED (Gemini JSON agent, Nano Banana poster, Google Places)
+- Phase 2 MVP: COMPLETE. Testing agent iteration_1: backend 14/15, frontend all flows passing.
+- CRITICAL chat validation bug FIXED (tolerant ClarifyingCard coercion + prompt rules for date/time cards). Verified with naamkaran + farmhouse + kitty flows.
+- User feedback applied: no em-dashes site-wide (+ LLM rule), MINIMAL poster style (demo poster regenerated), richer event-aware clarifying questions (drinks/alcohol, veg/non-veg/Jain, baraat, pandit, theme).
+- Demo event live at /e/simran-weds-arjun with minimal AI poster.
+- Next (Phase 3 candidates): session resume, vendor shortlist UX polish, more templates hardening, analytics-lite logging.

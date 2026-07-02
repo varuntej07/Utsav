@@ -23,7 +23,7 @@ export default function EventPage() {
     axios
       .get(`${API}/events/${slug}`)
       .then((r) => setEvent(r.data))
-      .catch(() => setError("Yeh event nahi mila — link check karke dobara try karein."));
+      .catch(() => setError("Yeh event nahi mila. Link check karke dobara try karein."));
   }, [slug]);
 
   if (error) {
@@ -159,7 +159,7 @@ export default function EventPage() {
         </div>
 
         <footer className="mt-12 text-center text-xs text-muted-foreground">
-          Made with Utsav — Bolo idea. Utsav banaye mehfil.
+          Made with Utsav. Bolo idea, Utsav banaye mehfil.
         </footer>
       </div>
 

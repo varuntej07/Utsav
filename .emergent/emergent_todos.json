@@ -33,6 +33,14 @@
   },
   {
     "content": "Phase 2: End to End Testing using Testing Agent",
-    "status": "in_progress"
+    "status": "completed"
+  },
+  {
+    "content": "Fix CRITICAL /api/chat schema validation bug from test report",
+    "status": "completed"
+  },
+  {
+    "content": "User feedback: remove all em-dashes, minimal posters, richer event-aware questions",
+    "status": "completed"
   }
 ]
