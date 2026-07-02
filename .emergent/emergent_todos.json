@@ -1,0 +1,34 @@
+[
+  {
+    "content": "Phase 1: POC - Gemini strict JSON multi-turn planning agent",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 1: POC - Nano Banana poster generation",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 1: POC - Google Places vendor lookup with fallback",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 2: Design guidelines via design_agent",
+    "status": "in_progress"
+  },
+  {
+    "content": "Phase 2: Backend - chat/events/rsvp/vendors/poster APIs + seed demo wedding",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Frontend - landing, planner (dynamic component registry), /e/:slug event page",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Integrations - WhatsApp, Maps, Calendar links",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: End to End Testing using Testing Agent",
+    "status": "pending"
+  }
+]
