@@ -1,0 +1,106 @@
+{
+  "summary": "Completed comprehensive backend and frontend testing of Utsav event planning app. Backend: 14/15 tests passed (93.3%). Frontend: All major UI flows working. Critical issue: AI chat endpoint failing due to Gemini schema validation errors.",
+  "backend_issues": {
+    "critical_bugs": [
+      {
+        "endpoint": "/api/chat",
+        "issue": "Returns 502 Bad Gateway. Gemini AI returns invalid JSON with schema validation errors: clarifyingCards[0].options is None instead of list, min/max are date strings instead of numbers for date input type",
+        "impact": "BLOCKS core conversational planning flow - users cannot create new events via AI chat",
+        "fix_priority": "CRITICAL",
+        "error_details": "Agent failure: 3 validation errors for AgentTurn - clarifyingCards.0.options Input should be a valid list [type=list_type, input_value=None], clarifyingCards.0.min/max unable to parse string as number [type=float_parsing, input_value='2026-07-03']",
+        "suggested_fix": "Fix agent.py or schemas.py to handle date input types correctly - date cards should not have min/max as numbers, or Gemini prompt needs to be updated to not return min/max for date inputs"
+      }
+    ],
+    "flaky_endpoints": [],
+    "working_endpoints": [
+      "GET /api/demo - Returns seeded demo wedding with plan, posterUrl, rsvpSummary",
+      "GET /api/events/{slug} - Returns event details with rsvpSummary",
+      "GET /api/events/nonexistent-slug - Correctly returns 404",
+      "POST /api/events/{slug}/rsvp - Creates RSVP and updates summary",
+      "GET /api/events/{slug}/rsvps - Lists all RSVPs with summary",
+      "GET /api/events/{slug}/vendors - Returns vendors from Google Places API (live integration working!)",
+      "GET /api/events/{slug}/vendors?category=caterer - Category filtering works",
+      "POST /api/events/{slug}/vendors/shortlist - Toggles vendor shortlist persistence",
+      "PATCH /api/events/{slug}/checklist - Updates checklist item done status",
+      "PATCH /api/events/{slug}/budget - Updates budget item amount and recalculates total",
+      "PATCH /api/events/{slug}/food - Updates diet type",
+      "POST /api/events/{slug}/reminders - Creates reminder",
+      "PATCH /api/events/{slug}/reminders - Updates reminder done status",
+      "GET /api/posters/{filename} - Serves poster images correctly"
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "ChecklistModule",
+        "issue": "Checkbox selector '[data-testid=\"module-checklist\"] input[type=\"checkbox\"]' not finding checkboxes - they may be custom styled buttons/divs instead of native checkboxes",
+        "selector": "input[type=\"checkbox\"]",
+        "fix_priority": "LOW",
+        "note": "Checklist is visually working and items are displayed correctly, just the test selector needs adjustment"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "console_warnings": [
+      {
+        "warning": "Missing `Description` or `aria-describedby={undefined}` for {DialogContent}",
+        "severity": "LOW",
+        "impact": "Accessibility warning - does not affect functionality"
+      }
+    ],
+    "working_features": [
+      "Landing page loads with hero title 'Bolo idea. Utsav banaye mehfil.'",
+      "Describe textarea present and functional",
+      "Event type chips (Shaadi, Haldi, Naamkaran, etc.) render and prefill textarea on click",
+      "Demo event card displays with poster image visible",
+      "Navigation to /e/simran-weds-arjun works",
+      "Event page hero with title, emoji, description, date/time chips, muhurat chip, location chip",
+      "RSVP Module: name input, headcount select, Going/Maybe/Can't buttons all working",
+      "RSVP flow: submit RSVP, counts update, 'you responded' state appears, toast notification shows",
+      "RSVP guest list displays recent responses",
+      "Share bar: WhatsApp button href contains wa.me, Directions button href contains google.com/maps, Calendar button href contains calendar.google.com, Copy link button present",
+      "Vendors Module: category tabs (Banquet Halls, Caterers, Decorators, etc.) switch categories and load vendor cards",
+      "Vendor cards display name, address, rating, price range, Maps link",
+      "Vendor shortlist heart button toggles shortlist state (heart fills)",
+      "Budget Module: displays total in Indian format (₹40.5 L), +/- buttons adjust amounts, running total updates",
+      "Timeline Module: displays 5 functions with dates, times, muhurat chips, descriptions, 'Add to Calendar' links with correct href",
+      "Food Module: displays diet type and menu suggestions",
+      "Reminders Module: 'Add' button opens dialog, text input works, 'Save' button adds reminder to list",
+      "Poster Module: displays generated poster image, 'Download poster' button present"
+    ]
+  },
+  "passed_tests": [
+    "Backend: GET /api/demo returns seeded demo wedding",
+    "Backend: GET /api/events/{slug} returns event with rsvpSummary",
+    "Backend: 404 handling for nonexistent events",
+    "Backend: RSVP creation and listing",
+    "Backend: Vendor search with Google Places API (live data!)",
+    "Backend: Vendor shortlisting",
+    "Backend: Checklist, budget, food, reminders PATCH operations",
+    "Backend: Poster image serving",
+    "Frontend: Landing page loads with all elements visible",
+    "Frontend: Event type chip prefills textarea",
+    "Frontend: Demo event navigation to /e/simran-weds-arjun",
+    "Frontend: Event page modules render and are visible",
+    "Frontend: RSVP flow end-to-end (name input → submit → counts update → responded state)",
+    "Frontend: Share bar links (WhatsApp, Maps, Calendar) have correct hrefs",
+    "Frontend: Vendors module category tabs switch and load vendors",
+    "Frontend: Vendor shortlist toggle works",
+    "Frontend: Budget +/- buttons update total",
+    "Frontend: Timeline calendar links work",
+    "Frontend: Reminders add dialog works"
+  ],
+  "test_report_links": [
+    "/app/backend/backend_test.py"
+  ],
+  "action_item_for_main_agent": "CRITICAL: Fix POST /api/chat endpoint - Gemini AI is returning invalid JSON that fails Pydantic schema validation. The issue is with clarifyingCards for date input types: (1) options field is None instead of empty list, (2) min/max fields contain date strings instead of numbers. This blocks the entire conversational planning flow. Suggested fixes: (a) Update schemas.py ClarifyingCard model to make options optional with default [], (b) Update agent.py SYSTEM_PROMPT to clarify that date input types should NOT have min/max fields or should have them as null, (c) Add better error handling/repair logic in run_agent_turn. Test the fix by calling POST /api/chat with a simple event description.",
+  "updated_files": [
+    "/app/backend/backend_test.py"
+  ],
+  "success_percentage": {
+    "backend": "93.3% (14/15 tests passed)",
+    "frontend": "95% (19/20 features tested, 1 minor selector issue)"
+  },
+  "should_call_test_agent_after_fix": "true",
+  "should_main_agent_test_itself": "false"
+}
