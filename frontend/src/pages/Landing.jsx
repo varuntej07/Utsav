@@ -7,8 +7,7 @@ import {
   MessageCircle, CheckCircle2, PartyPopper, Home as HomeIcon,
   Cake, Music, Heart, Baby, Briefcase, Coffee, Gem, Flower2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { API, formatDateLong } from "@/lib/utsav";
 
@@ -23,6 +22,17 @@ const EVENT_CHIPS = [
   { label: "Pooja", icon: Flame, prompt: "Planning a Satyanarayan Pooja at home" },
   { label: "Anniversary", icon: Heart, prompt: "Planning our anniversary celebration" },
   { label: "Corporate", icon: Briefcase, prompt: "Planning a corporate offsite for my team" },
+];
+
+const EXAMPLES = [
+  { lang: "Hinglish", text: "Meri behen ki shaadi hai Jaipur mein this December, 300 guests", icon: Gem, meta: "Wedding \u00b7 Jaipur" },
+  { lang: "English", text: "Housewarming party for our new flat in Bengaluru, 40 guests", icon: HomeIcon, meta: "Griha Pravesh \u00b7 Bengaluru" },
+  { lang: "Telugu", text: "Maa paapa first birthday Hyderabad lo, 60 guests, jungle theme", icon: Cake, meta: "1st Birthday \u00b7 Hyderabad" },
+  { lang: "Malayalam", text: "Ente veettil griha pravesham Kochi il, 50 aalukal, pooja venam", icon: Flame, meta: "Griha Pravesh \u00b7 Kochi" },
+  { lang: "Tamil", text: "En thangachi oda engagement Chennai la, 100 perukku", icon: Heart, meta: "Engagement \u00b7 Chennai" },
+  { lang: "Bengali", text: "Amar chheler annaprashan Kolkata te, 80 jon guest", icon: Baby, meta: "Annaprashan \u00b7 Kolkata" },
+  { lang: "English", text: "Farmhouse party with DJ and BBQ near Gurgaon for 30 friends", icon: Music, meta: "Farmhouse Party \u00b7 Gurgaon" },
+  { lang: "Hinglish", text: "Papa ke retirement ki grand party Pune mein, 70 guests", icon: Briefcase, meta: "Retirement \u00b7 Pune" },
 ];
 
 export default function Landing() {
@@ -43,7 +53,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen noise-overlay bg-[radial-gradient(1200px_circle_at_20%_0%,hsl(38_92%_55%/0.16),transparent_55%),radial-gradient(900px_circle_at_90%_10%,hsl(354_55%_28%/0.08),transparent_50%)]">
+    <div className="min-h-screen bg-white bg-[radial-gradient(1000px_circle_at_50%_-10%,hsl(36_95%_50%/0.07),transparent_55%)]">
       <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-6 sm:pt-10 pb-16">
         {/* Header */}
         <header className="flex items-center justify-between">
@@ -69,7 +79,7 @@ export default function Landing() {
           >
             Bolo idea.
             <br />
-            <span className="text-[hsl(var(--primary))]">Utsav banaye mehfil.</span>
+            <span className="text-[hsl(30_90%_45%)]">Utsav banaye mehfil.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -144,6 +154,42 @@ export default function Landing() {
             <span className="inline-flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[hsl(142_52%_36%)]" /> No signup needed</span>
             <span className="inline-flex items-center gap-1.5"><MessageCircle size={14} className="text-[hsl(142_52%_36%)]" /> Share on WhatsApp</span>
             <span className="inline-flex items-center gap-1.5"><Users size={14} className="text-[hsl(142_52%_36%)]" /> Guests RSVP in one tap</span>
+          </div>
+        </section>
+
+        {/* Example ideas carousel */}
+        <section className="mt-14" data-testid="landing-examples-carousel">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Kisi bhi bhasha mein bolo. Tap an idea to try
+          </h2>
+          <div className="relative mt-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+            <div className="marquee-track">
+              {[...EXAMPLES, ...EXAMPLES].map(({ lang, text: exText, icon: Icon, meta }, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  data-testid={`landing-example-card-${i % EXAMPLES.length}`}
+                  aria-hidden={i >= EXAMPLES.length}
+                  tabIndex={i >= EXAMPLES.length ? -1 : 0}
+                  onClick={() => {
+                    sessionStorage.setItem("utsav_initial", exText);
+                    navigate("/plan", { state: { initialMessage: exText } });
+                  }}
+                  className="group mr-3 w-[300px] shrink-0 rounded-2xl border border-border bg-white p-4 text-left shadow-[var(--shadow-sm)] transition-colors hover:border-[hsl(var(--accent))] hover:shadow-[var(--shadow-md)]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[hsl(30_90%_45%)]">
+                      <Icon size={13} /> {meta}
+                    </span>
+                    <span className="rounded-full bg-[hsl(var(--muted))] px-2 py-0.5 text-[10px] font-medium text-muted-foreground">{lang}</span>
+                  </div>
+                  <p className="mt-2 text-sm font-medium leading-snug">{"\u201C"}{exText}{"\u201D"}</p>
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[hsl(var(--primary))] opacity-0 transition-opacity group-hover:opacity-100">
+                    Plan this <Send size={11} />
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 

@@ -35,6 +35,13 @@ POST /api/chat returns a strict JSON contract each turn (assistantMessage, phase
 - Gemini schema drift handled via coercion validators, never trust raw output
 - Poster generation takes ~30-60s; frontend uses 120s axios timeout
 
+## UI Refresh (user-requested)
+- Fonts: Fraunces (soft serif headings) + Manrope (clean sans body)
+- Colors: pure white base, charcoal text/buttons, marigold-amber accent (tokens in index.css)
+- Landing: smooth infinite marquee carousel of multi-language example idea cards (Hinglish/English/Telugu/Malayalam/Tamil/Bengali), tap starts planner; demo event preview kept
+- Agent rule 9: reply in the user's own language (any Indian language, Latin script ok)
+- index.html title: Utsav | AI Event Planner for India
+
 ## Status
 - Phase 1 POC: PASSED (2 consecutive runs)
 - Phase 2 MVP: complete; testing agent iteration_1: backend 14/15 (chat bug FIXED after), frontend all flows passing

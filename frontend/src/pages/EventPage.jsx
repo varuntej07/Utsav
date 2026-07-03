@@ -58,7 +58,7 @@ export default function EventPage() {
   const showChecklist = has("checklist") || has("rituals");
 
   return (
-    <div className="min-h-screen noise-overlay bg-[radial-gradient(1100px_circle_at_15%_0%,hsl(38_92%_55%/0.14),transparent_55%),radial-gradient(800px_circle_at_95%_5%,hsl(354_55%_28%/0.07),transparent_50%)]">
+    <div className="min-h-screen bg-white bg-[radial-gradient(1000px_circle_at_50%_-10%,hsl(36_95%_50%/0.07),transparent_55%)]">
       <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-6 pb-32 sm:pb-28">
         {/* Top nav */}
         <div className="flex items-center justify-between">

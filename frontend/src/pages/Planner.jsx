@@ -112,7 +112,7 @@ export default function Planner() {
 
   if (assembling) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center noise-overlay bg-[radial-gradient(1000px_circle_at_50%_0%,hsl(38_92%_55%/0.18),transparent_60%)] px-6" data-testid="planner-assembling">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-white bg-[radial-gradient(1000px_circle_at_50%_0%,hsl(36_95%_50%/0.08),transparent_60%)] px-6" data-testid="planner-assembling">
         <div className="anim-rise flex h-20 w-20 items-center justify-center rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-[var(--shadow-md)]">
           <Flame size={34} />
         </div>
@@ -136,7 +136,7 @@ export default function Planner() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col noise-overlay bg-[radial-gradient(900px_circle_at_80%_0%,hsl(38_92%_55%/0.10),transparent_55%)]">
+    <div className="flex min-h-screen flex-col bg-white bg-[radial-gradient(800px_circle_at_50%_-10%,hsl(36_95%_50%/0.06),transparent_55%)]">
       {/* Header */}
       <header className="sticky top-0 z-20 border-b border-border bg-[hsl(var(--background))]/90 backdrop-blur">
         <div className="mx-auto flex w-full max-w-[760px] items-center gap-3 px-4 py-3">

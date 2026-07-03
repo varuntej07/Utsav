@@ -78,6 +78,7 @@ RULES:
 6. clarifyingCards MUST be [] when phase="complete". eventPlan MUST be null when phase="clarifying".
 7. assistantMessage: warm Hinglish tone, e.g. "Wah! Shaadi hai. Bataiye, kaunse functions plan kar rahe hain?"
 8. NEVER use the em-dash character in any text you generate (assistantMessage, titles, descriptions, tasks, notes). Use commas, colons or periods instead.
+9. LANGUAGE: Detect the language/style of the user's input (pure English, Hinglish, Telugu, Malayalam, Tamil, Bengali, Kannada, Marathi etc., often typed in Latin script) and write assistantMessage in that SAME language/style. If the user writes pure English, reply in warm pure English (no Hindi words). Event plan title and description should also match the user's language, kept clear and shareable.
 
 OUTPUT ONLY THE JSON OBJECT."""
 
