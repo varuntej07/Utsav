@@ -23,7 +23,7 @@ export function BudgetModule({ event, onUpdate }) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-budget">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-budget">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">Budget Estimator</h3>
         <span className="rounded-full border border-[hsl(var(--utsav-gold))] bg-[hsl(var(--secondary))] px-3 py-1 text-sm font-bold" data-testid="event-budget-total">
@@ -60,9 +60,9 @@ export function BudgetModule({ event, onUpdate }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
+      <div className="mt-4 flex items-center justify-between rounded-xl bg-muted/60 px-4 py-3">
         <span className="text-sm font-semibold">Running total</span>
-        <span className="text-lg font-bold text-[hsl(var(--primary))]">{formatINR(total)}</span>
+        <span className="text-lg font-bold text-[hsl(var(--primary-text))]">{formatINR(total)}</span>
       </div>
       <p className="mt-1 text-[11px] text-muted-foreground">Tap +/− to adjust by ₹10,000. Indian numbering in lakhs & crores.</p>
     </section>

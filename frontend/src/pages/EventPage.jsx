@@ -29,11 +29,11 @@ export default function EventPage() {
   if (error) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(var(--secondary))] text-[hsl(var(--primary))]">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-[hsl(var(--primary-text))]">
           <Flame size={24} />
         </span>
         <p className="text-lg font-medium" data-testid="event-not-found">{error}</p>
-        <Link to="/" className="text-sm font-semibold text-[hsl(var(--primary))] underline" data-testid="event-back-home-link">
+        <Link to="/" className="text-sm font-semibold text-[hsl(var(--primary-text))] underline" data-testid="event-back-home-link">
           Plan a new Utsav
         </Link>
       </div>
@@ -58,7 +58,7 @@ export default function EventPage() {
   const showChecklist = has("checklist") || has("rituals");
 
   return (
-    <div className="min-h-screen bg-white bg-[radial-gradient(1000px_circle_at_50%_-10%,hsl(36_95%_50%/0.07),transparent_55%)]">
+    <div className="min-h-screen bg-background bg-[radial-gradient(1000px_circle_at_50%_-10%,hsl(var(--primary)/0.09),transparent_55%)]">
       <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-6 pb-32 sm:pb-28">
         {/* Top nav */}
         <div className="flex items-center justify-between">
@@ -80,8 +80,8 @@ export default function EventPage() {
 
           <div className="mt-5 flex flex-wrap items-center gap-2">
             {plan.date && (
-              <Badge className="gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-medium text-foreground hover:bg-white" data-testid="event-date-chip">
-                <CalendarDays size={12} className="text-[hsl(var(--primary))]" />
+              <Badge className="gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-foreground shadow-[var(--shadow-xs)] hover:bg-white" data-testid="event-date-chip">
+                <CalendarDays size={12} className="text-[hsl(var(--primary-text))]" />
                 {formatDateLong(plan.date)}{plan.time ? ` · ${plan.time}` : ""}
               </Badge>
             )}
@@ -93,21 +93,21 @@ export default function EventPage() {
             )}
             {plan.location && (
               <a href={mapsLink(plan.location)} target="_blank" rel="noopener noreferrer" data-testid="event-location-chip">
-                <Badge className="gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-[hsl(var(--secondary))]">
-                  <MapPin size={12} className="text-[hsl(var(--primary))]" />
+                <Badge className="gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-foreground shadow-[var(--shadow-xs)] transition-colors hover:bg-secondary">
+                  <MapPin size={12} className="text-[hsl(var(--primary-text))]" />
                   {plan.location} <ExternalLink size={10} />
                 </Badge>
               </a>
             )}
             {plan.guestCount && (
-              <Badge className="gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-medium text-foreground hover:bg-white">
-                <Users size={12} className="text-[hsl(var(--primary))]" />
+              <Badge className="gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-foreground shadow-[var(--shadow-xs)] hover:bg-white">
+                <Users size={12} className="text-[hsl(var(--primary-text))]" />
                 ~{plan.guestCount} guests
               </Badge>
             )}
             {plan.budgetINR && (
-              <Badge className="gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-medium text-foreground hover:bg-white">
-                <Wallet size={12} className="text-[hsl(var(--primary))]" />
+              <Badge className="gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-foreground shadow-[var(--shadow-xs)] hover:bg-white">
+                <Wallet size={12} className="text-[hsl(var(--primary-text))]" />
                 {formatINRCompact(plan.budgetINR)} budget
               </Badge>
             )}

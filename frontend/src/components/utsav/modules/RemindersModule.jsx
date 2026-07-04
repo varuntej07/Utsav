@@ -41,12 +41,12 @@ export function RemindersModule({ event, onUpdate }) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-reminders">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-reminders">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">Reminders</h3>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button data-testid="reminders-add-button" variant="outline" size="sm" className="rounded-full gap-1 border-[hsl(var(--primary))] text-[hsl(var(--primary))] hover:bg-[hsl(var(--secondary))]">
+            <Button data-testid="reminders-add-button" variant="outline" size="sm" className="rounded-full gap-1 border-[hsl(var(--primary-text))] text-[hsl(var(--primary-text))] hover:bg-[hsl(var(--secondary))]">
               <Plus size={14} /> Add
             </Button>
           </DialogTrigger>

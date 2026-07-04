@@ -3,7 +3,7 @@ import { calendarLink, formatDateLong } from "@/lib/utsav";
 
 export function TimelineModule({ plan }) {
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-timeline">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-timeline">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">Timeline & Functions</h3>
         <span className="text-xs text-muted-foreground">{plan.timeline.length} functions</span>
@@ -30,7 +30,7 @@ export function TimelineModule({ plan }) {
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="font-semibold">{t.function}</p>
                   {t.muhurat && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--utsav-gold))] bg-[hsl(38_92%_55%/0.12)] px-2 py-0.5 text-[11px] font-medium">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--utsav-gold))] bg-[hsl(var(--utsav-gold)/0.14)] px-2 py-0.5 text-[11px] font-medium">
                       <Flame size={10} className="text-[hsl(var(--utsav-gold))]" /> {t.muhurat}
                     </span>
                   )}
@@ -48,7 +48,7 @@ export function TimelineModule({ plan }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid={`timeline-item-${i}-calendar-link`}
-                      className="inline-flex items-center gap-1 font-medium text-[hsl(var(--primary))] hover:underline"
+                      className="inline-flex items-center gap-1 font-medium text-[hsl(var(--primary-text))] hover:underline"
                     >
                       <CalendarPlus size={11} /> Add to Calendar
                     </a>

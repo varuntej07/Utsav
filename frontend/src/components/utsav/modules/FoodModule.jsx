@@ -46,7 +46,7 @@ export function FoodModule({ event, onUpdate }) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-food">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-food">
       <h3 className="font-display mb-4 text-lg sm:text-xl font-bold tracking-[-0.01em]">Food & Drinks</h3>
 
       {/* Diet toggles */}
@@ -85,7 +85,7 @@ export function FoodModule({ event, onUpdate }) {
 
       {/* Potluck sign-up for smaller events */}
       {smallEvent && (
-        <div className="mt-5 border-t border-border pt-4">
+        <div className="mt-5 rounded-xl bg-muted/40 p-4">
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Potluck sign-up</p>
           <div className="flex flex-col gap-2 sm:flex-row">
             <Input data-testid="potluck-name-input" value={pName} onChange={(e) => setPName(e.target.value)} placeholder="Your name" className="h-10 rounded-xl bg-white" />

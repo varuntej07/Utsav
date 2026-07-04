@@ -1,19 +1,10 @@
 import { useState } from "react";
 import { format } from "date-fns";
-import {
-  Users, CalendarDays, MapPin, Wallet, Utensils, Music,
-  Sparkles, Heart, Home, Baby, Clock, Flame, Check,
-} from "lucide-react";
+import { CalendarDays, Clock, Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { formatINRCompact } from "@/lib/utsav";
-
-const ICONS = {
-  users: Users, calendar: CalendarDays, "map-pin": MapPin, wallet: Wallet,
-  utensils: Utensils, music: Music, sparkles: Sparkles, heart: Heart,
-  home: Home, baby: Baby, clock: Clock, flame: Flame,
-};
 
 const DEFAULT_TIMES = ["10:00 AM", "12:00 PM", "4:00 PM", "6:00 PM", "7:00 PM", "8:00 PM"];
 
@@ -24,12 +15,12 @@ function Chip({ selected, onClick, children, testId, multi }) {
       data-testid={testId}
       aria-pressed={selected}
       onClick={onClick}
-      className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium shadow-[var(--shadow-sm)] transition-colors active:scale-[0.98] ${
+      className={`inline-flex h-11 items-center gap-1.5 rounded-full border px-4 text-sm font-medium transition-colors active:scale-[0.98] ${
         selected
           ? multi
-            ? "border-[hsl(var(--accent))] bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))]"
-            : "border-[hsl(var(--primary))] bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]"
-          : "border-border bg-white hover:border-[hsl(var(--accent))] hover:bg-[hsl(var(--secondary))]"
+            ? "border-transparent bg-accent text-accent-foreground shadow-[var(--shadow-sm)]"
+            : "border-transparent bg-primary text-primary-foreground shadow-[var(--shadow-sm)]"
+          : "border-border bg-white text-foreground shadow-[var(--shadow-xs)] hover:border-primary/50 hover:bg-secondary"
       }`}
     >
       {selected && <Check size={14} />}
@@ -83,7 +74,7 @@ function SliderInput({ card, value, onChange, isBudget }) {
   return (
     <div className="px-1">
       <div className="mb-3 flex items-center justify-between">
-        <span className="rounded-full border border-[hsl(var(--utsav-gold))] bg-[hsl(var(--secondary))] px-3 py-1 text-sm font-semibold">
+        <span className="rounded-full border border-[hsl(var(--utsav-gold))] bg-secondary px-3 py-1 text-sm font-semibold">
           {isBudget ? formatINRCompact(current) : current}
         </span>
         <span className="text-xs text-muted-foreground">
@@ -110,8 +101,10 @@ function DateInput({ card, value, onChange }) {
         <button
           type="button"
           data-testid={`clarify-${card.id}-date-trigger`}
-          className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium shadow-[var(--shadow-sm)] transition-colors ${
-            value ? "border-[hsl(var(--primary))] bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]" : "border-border bg-white hover:bg-[hsl(var(--secondary))]"
+          className={`inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors ${
+            value
+              ? "border-transparent bg-primary text-primary-foreground shadow-[var(--shadow-sm)]"
+              : "border-border bg-white shadow-[var(--shadow-xs)] hover:bg-secondary"
           }`}
         >
           <CalendarDays size={15} />
@@ -176,25 +169,28 @@ function renderInput(card, value, onChange) {
   }
 }
 
+function isAnswered(value) {
+  return value !== undefined && value !== null && value !== "" && !(Array.isArray(value) && value.length === 0);
+}
+
 export function ClarifyingCards({ cards, answers, onChange }) {
   return (
-    <div className="flex flex-col gap-3" data-testid="clarifying-cards">
+    <div className="flex flex-col gap-7 sm:gap-8" data-testid="clarifying-cards">
       {cards.map((card, idx) => {
-        const Icon = ICONS[card.icon] || Sparkles;
+        const value = answers[card.id];
+        const answered = isAnswered(value);
         return (
           <div
             key={card.id}
-            className="anim-rise rounded-2xl border border-border bg-white p-4 sm:p-5 shadow-[var(--shadow-card)]"
+            className="anim-rise"
             style={{ animationDelay: `${idx * 80}ms` }}
             data-testid={`clarifying-card-${card.id}`}
           >
-            <div className="mb-3 flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[hsl(var(--secondary))] text-[hsl(var(--primary))]">
-                <Icon size={15} />
-              </span>
-              <p className="font-semibold tracking-[-0.01em]">{card.question}</p>
-            </div>
-            {renderInput(card, answers[card.id], (v) => onChange(card.id, v))}
+            <p className="mb-3 flex items-center gap-2 text-base font-semibold tracking-tight sm:text-lg">
+              {answered && <Check size={16} className="shrink-0 text-[hsl(var(--primary-text))]" />}
+              {card.question}
+            </p>
+            {renderInput(card, value, (v) => onChange(card.id, v))}
           </div>
         );
       })}

@@ -47,7 +47,7 @@ export function VendorsModule({ event }) {
   const isShortlistedId = (id) => shortlisted.some((v) => v.id === id);
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-vendors">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-vendors">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">Vendor Shortlist</h3>
         <span className="text-xs text-muted-foreground">{shortlisted.length} shortlisted · near {event.plan.location}</span>
@@ -85,7 +85,7 @@ export function VendorsModule({ event }) {
             return (
               <div
                 key={v.id}
-                className={`rounded-xl border p-4 transition-colors ${sl ? "border-[hsl(var(--utsav-gold))] bg-[hsl(38_92%_55%/0.07)]" : "border-border bg-white"}`}
+                className={`rounded-xl p-4 transition-colors ${sl ? "bg-[hsl(var(--utsav-rose))] shadow-[var(--shadow-sm)] ring-1 ring-[hsl(var(--utsav-gold))]" : "bg-white shadow-[var(--shadow-xs)]"}`}
                 data-testid={`vendor-card-${v.id}`}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -101,7 +101,7 @@ export function VendorsModule({ event }) {
                     onClick={() => toggleShortlist(v)}
                     aria-label="Shortlist vendor"
                     className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-colors active:scale-95 ${
-                      sl ? "border-[hsl(var(--primary))] bg-[hsl(var(--primary))] text-white" : "border-border bg-white text-muted-foreground hover:border-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]"
+                      sl ? "border-transparent bg-primary text-primary-foreground" : "border-border bg-white text-muted-foreground hover:border-[hsl(var(--primary-text))] hover:text-[hsl(var(--primary-text))]"
                     }`}
                   >
                     <Heart size={15} fill={sl ? "currentColor" : "none"} />
@@ -114,7 +114,7 @@ export function VendorsModule({ event }) {
                       {v.rating} {v.ratingCount ? <span className="text-muted-foreground">({v.ratingCount})</span> : null}
                     </span>
                   )}
-                  <span className="font-medium text-[hsl(var(--primary))]">{v.priceRange}</span>
+                  <span className="font-medium text-[hsl(var(--primary-text))]">{v.priceRange}</span>
                   {v.mapsUri && (
                     <a href={v.mapsUri} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-0.5 text-muted-foreground hover:text-foreground">
                       Map <ExternalLink size={10} />

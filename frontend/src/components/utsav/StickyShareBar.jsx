@@ -23,7 +23,7 @@ export function StickyShareBar({ event }) {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 backdrop-blur" data-testid="event-share-bar">
+    <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 shadow-[var(--shadow-md)] backdrop-blur" data-testid="event-share-bar">
       <div className="mx-auto flex w-full max-w-[1100px] items-center gap-2 px-4 py-3 sm:px-6">
         <a href={wa} target="_blank" rel="noopener noreferrer" className="flex-1 sm:flex-none">
           <Button

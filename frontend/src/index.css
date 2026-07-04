@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Manrope:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300..800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,50 +6,62 @@
 
 body {
     margin: 0;
-    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 .font-display {
-    font-family: 'Fraunces', serif;
+    font-family: 'Sora', system-ui, sans-serif;
+    font-weight: 750;
+    letter-spacing: -0.02em;
 }
 
 @layer base {
     :root {
-        /* Utsav - Pure White Modern */
-        --background: 0 0% 100%;
-        --foreground: 224 15% 12%;
+        /* Utsav - Warm Saffron & Maroon */
+        --background: 34 30% 97%;
+        --foreground: 20 18% 14%;
         --card: 0 0% 100%;
-        --card-foreground: 224 15% 12%;
+        --card-foreground: 20 18% 14%;
         --popover: 0 0% 100%;
-        --popover-foreground: 224 15% 12%;
-        --primary: 224 15% 14%;
-        --primary-foreground: 0 0% 100%;
-        --secondary: 36 45% 96%;
-        --secondary-foreground: 224 15% 12%;
-        --muted: 220 14% 96%;
-        --muted-foreground: 224 8% 42%;
-        --accent: 36 95% 50%;
-        --accent-foreground: 224 15% 12%;
-        --destructive: 0 72% 52%;
+        --popover-foreground: 20 18% 14%;
+        --primary: 36 78% 46%;
+        --primary-foreground: 20 18% 14%;
+        --primary-text: 32 85% 36%; /* darker AA-safe amber for text/icons/borders on light bg (~4.7:1) — raw --primary is too light for that (~2.7:1) */
+        --secondary: 34 40% 93%;
+        --secondary-foreground: 20 18% 14%;
+        --muted: 30 22% 95%;
+        --muted-foreground: 22 10% 42%;
+        --accent: 345 55% 27%;
+        --accent-foreground: 30 30% 97%;
+        --destructive: 0 68% 46%;
         --destructive-foreground: 0 0% 98%;
-        --border: 220 13% 90%;
-        --input: 220 13% 90%;
-        --ring: 36 95% 50%;
-        --utsav-gold: 40 85% 48%;
-        --utsav-maroon: 354 55% 28%;
-        --utsav-saffron: 36 95% 50%;
-        --utsav-rose: 8 70% 92%;
-        --radius: 0.9rem;
-        --shadow-sm: 0 1px 2px hsl(224 15% 12% / 0.05);
-        --shadow-md: 0 10px 30px hsl(224 15% 12% / 0.08);
-        --shadow-card: 0 8px 20px hsl(224 15% 12% / 0.06);
-        --chart-1: 36 95% 50%;
-        --chart-2: 224 15% 14%;
-        --chart-3: 40 85% 48%;
-        --chart-4: 8 70% 62%;
-        --chart-5: 27 87% 67%;
+        --success: 142 45% 34%;
+        --success-foreground: 0 0% 100%;
+        --warning: 45 85% 55%;
+        --warning-foreground: 20 18% 14%;
+        --warning-text: 38 80% 34%;
+        --info: 205 60% 42%;
+        --info-foreground: 0 0% 100%;
+        --border: 30 18% 87%;
+        --input: 30 18% 87%;
+        --ring: 32 85% 36%;
+        --utsav-gold: 45 85% 55%;
+        --utsav-maroon: 345 55% 27%;
+        --utsav-saffron: 36 78% 46%;
+        --utsav-rose: 345 40% 94%;
+        --radius: 1rem;
+        --shadow-xs: 0 1px 2px hsl(20 18% 14% / 0.05);
+        --shadow-sm: 0 2px 6px hsl(20 18% 14% / 0.06);
+        --shadow-md: 0 12px 32px hsl(20 18% 14% / 0.12);
+        --shadow-lg: 0 24px 56px hsl(20 18% 14% / 0.18);
+        --shadow-card: 0 8px 24px hsl(20 18% 14% / 0.07), 0 2px 6px hsl(20 18% 14% / 0.04);
+        --chart-1: 36 78% 46%;
+        --chart-2: 345 55% 27%;
+        --chart-3: 45 85% 55%;
+        --chart-4: 142 45% 34%;
+        --chart-5: 205 60% 42%;
     }
 }
 
@@ -133,7 +145,7 @@ body {
     100% { background-position: 400px 0; }
 }
 .poster-shimmer {
-    background: linear-gradient(90deg, hsl(34 30% 94%) 25%, hsl(38 60% 90%) 50%, hsl(34 30% 94%) 75%);
+    background: linear-gradient(90deg, hsl(30 22% 93%) 25%, hsl(45 70% 90%) 50%, hsl(30 22% 93%) 75%);
     background-size: 800px 100%;
     animation: shimmer 1.6s infinite linear;
 }

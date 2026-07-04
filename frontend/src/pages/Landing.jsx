@@ -55,7 +55,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-white bg-[radial-gradient(1000px_circle_at_50%_-10%,hsl(36_95%_50%/0.07),transparent_55%)]">
+    <div className="min-h-screen bg-background bg-[radial-gradient(1000px_circle_at_50%_-10%,hsl(var(--primary)/0.09),transparent_55%)]">
       <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-6 sm:pt-10 pb-16">
         {/* Header */}
         <header className="flex items-center justify-between">
@@ -81,7 +81,7 @@ export default function Landing() {
           >
             Bolo idea.
             <br />
-            <span className="text-[hsl(30_90%_45%)]">Utsav banaye mehfil.</span>
+            <span className="text-[hsl(32_85%_36%)]">Utsav banaye mehfil.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -98,7 +98,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.18 }}
-            className="mt-8 rounded-2xl border border-border bg-white p-3 shadow-[var(--shadow-md)]"
+            className="mt-8 rounded-2xl bg-white p-3 shadow-[var(--shadow-md)]"
           >
             <Textarea
               ref={inputRef}
@@ -145,7 +145,7 @@ export default function Landing() {
                 }}
                 className="snap-start inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-white px-4 py-2 text-sm font-medium shadow-[var(--shadow-sm)] transition-colors hover:border-[hsl(var(--accent))] hover:bg-[hsl(var(--secondary))] active:scale-[0.98]"
               >
-                <Icon size={14} className="text-[hsl(var(--primary))]" />
+                <Icon size={14} className="text-[hsl(var(--primary-text))]" />
                 {label}
               </button>
             ))}
@@ -153,9 +153,9 @@ export default function Landing() {
 
           {/* Trust row */}
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[hsl(142_52%_36%)]" /> No signup needed</span>
-            <span className="inline-flex items-center gap-1.5"><MessageCircle size={14} className="text-[hsl(142_52%_36%)]" /> Share on WhatsApp</span>
-            <span className="inline-flex items-center gap-1.5"><Users size={14} className="text-[hsl(142_52%_36%)]" /> Guests RSVP in one tap</span>
+            <span className="inline-flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[hsl(var(--success))]" /> No signup needed</span>
+            <span className="inline-flex items-center gap-1.5"><MessageCircle size={14} className="text-[hsl(var(--success))]" /> Share on WhatsApp</span>
+            <span className="inline-flex items-center gap-1.5"><Users size={14} className="text-[hsl(var(--success))]" /> Guests RSVP in one tap</span>
           </div>
         </section>
 
@@ -177,16 +177,16 @@ export default function Landing() {
                     sessionStorage.setItem("utsav_initial", exText);
                     navigate("/plan", { state: { initialMessage: exText } });
                   }}
-                  className="group mr-3 w-[300px] shrink-0 rounded-2xl border border-border bg-white p-4 text-left shadow-[var(--shadow-sm)] transition-colors hover:border-[hsl(var(--accent))] hover:shadow-[var(--shadow-md)]"
+                  className="group mr-3 w-[300px] shrink-0 rounded-2xl border border-transparent bg-white p-4 text-left shadow-[var(--shadow-xs)] transition-colors hover:border-[hsl(var(--accent))] hover:shadow-[var(--shadow-md)]"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[hsl(30_90%_45%)]">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[hsl(var(--primary-text))]">
                       <Icon size={13} /> {meta}
                     </span>
                     <span className="rounded-full bg-[hsl(var(--muted))] px-2 py-0.5 text-[10px] font-medium text-muted-foreground">{lang}</span>
                   </div>
                   <p className="mt-2 text-sm font-medium leading-snug">{"\u201C"}{exText}{"\u201D"}</p>
-                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[hsl(var(--primary))] opacity-0 transition-opacity group-hover:opacity-100">
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[hsl(var(--primary-text))] opacity-0 transition-opacity group-hover:opacity-100">
                     Plan this <Send size={11} />
                   </span>
                 </button>
@@ -200,7 +200,7 @@ export default function Landing() {
           <section className="anim-rise mt-14">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">See a live Utsav</h2>
             <div
-              className="mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]"
+              className="mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-3xl bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]"
               data-testid="landing-demo-card"
             >
               {demo.posterUrl && (
@@ -213,7 +213,7 @@ export default function Landing() {
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <PartyPopper size={16} className="text-[hsl(var(--accent))]" />
-                  <span className="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--primary))]">North Indian Wedding · Demo</span>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--primary-text))]">North Indian Wedding · Demo</span>
                 </div>
                 <h3 className="font-display mt-1 text-xl sm:text-2xl font-bold">{demo.plan.title}</h3>
                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
@@ -229,7 +229,7 @@ export default function Landing() {
                 data-testid="landing-view-demo-button"
                 onClick={() => navigate(`/e/${demo.slug}`)}
                 variant="outline"
-                className="rounded-xl border-[hsl(var(--primary))] text-[hsl(var(--primary))] hover:bg-[hsl(var(--secondary))]"
+                className="rounded-xl border-[hsl(var(--primary-text))] text-[hsl(var(--primary-text))] hover:bg-[hsl(var(--secondary))]"
               >
                 View demo event
               </Button>

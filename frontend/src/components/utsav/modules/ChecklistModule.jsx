@@ -23,7 +23,7 @@ export function ChecklistModule({ event, onUpdate }) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-checklist">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-checklist">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">Rituals & Checklist</h3>
         <span className="text-xs font-semibold text-muted-foreground" data-testid="checklist-progress-label">{done}/{items.length} done</span>

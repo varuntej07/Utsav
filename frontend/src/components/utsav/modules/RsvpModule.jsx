@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { API } from "@/lib/utsav";
 
 const STATUS_META = {
-  going: { label: "Going", icon: Check, color: "hsl(142 52% 36%)" },
-  maybe: { label: "Maybe", icon: HelpCircle, color: "hsl(38 92% 45%)" },
-  no: { label: "Can't", icon: X, color: "hsl(0 60% 50%)" },
+  going: { label: "Going", icon: Check, color: "hsl(142 45% 34%)" },
+  maybe: { label: "Maybe", icon: HelpCircle, color: "hsl(38 80% 34%)" },
+  no: { label: "Can't", icon: X, color: "hsl(0 68% 46%)" },
 };
 
 export function RsvpModule({ event }) {
@@ -49,7 +49,7 @@ export function RsvpModule({ event }) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-rsvp">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-rsvp">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">Guest List & RSVP</h3>
         <span className="inline-flex items-center gap-1 text-xs text-muted-foreground" data-testid="rsvp-headcount">
@@ -60,7 +60,7 @@ export function RsvpModule({ event }) {
       {/* Live counts */}
       <div className="grid grid-cols-3 gap-2">
         {Object.entries(STATUS_META).map(([key, meta]) => (
-          <div key={key} className="rounded-xl border border-border bg-[hsl(var(--muted))] px-3 py-3 text-center" data-testid={`rsvp-count-${key}`}>
+          <div key={key} className="rounded-xl bg-muted px-3 py-3 text-center" data-testid={`rsvp-count-${key}`}>
             <p className="text-2xl font-bold" style={{ color: meta.color }}>{summary[key]}</p>
             <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{meta.label}</p>
           </div>
@@ -69,9 +69,9 @@ export function RsvpModule({ event }) {
 
       {/* RSVP form */}
       {myStatus ? (
-        <div className="mt-4 rounded-xl border border-[hsl(142_52%_36%)]/40 bg-[hsl(142_52%_36%)]/8 px-4 py-3 text-sm" data-testid="rsvp-responded">
+        <div className="mt-4 rounded-xl border border-[hsl(var(--success))]/30 bg-[hsl(var(--success))]/8 px-4 py-3 text-sm" data-testid="rsvp-responded">
           You responded <strong>{STATUS_META[myStatus]?.label}</strong>. Change of plans?{" "}
-          <button className="font-semibold text-[hsl(var(--primary))] underline" data-testid="rsvp-change-button" onClick={() => { setMyStatus(null); localStorage.removeItem(`utsav_rsvp_${event.slug}`); }}>
+          <button className="font-semibold text-[hsl(var(--primary-text))] underline" data-testid="rsvp-change-button" onClick={() => { setMyStatus(null); localStorage.removeItem(`utsav_rsvp_${event.slug}`); }}>
             RSVP again
           </button>
         </div>

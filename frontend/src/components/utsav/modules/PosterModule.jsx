@@ -23,7 +23,7 @@ export function PosterModule({ event, onUpdate }) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-[var(--shadow-card)]" data-testid="module-poster">
+    <section className="rounded-3xl bg-white p-6 sm:p-7 shadow-[var(--shadow-card)]" data-testid="module-poster">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg sm:text-xl font-bold tracking-[-0.01em]">AI Invitation Poster</h3>
         {posterUrl && !generating && (
@@ -40,7 +40,7 @@ export function PosterModule({ event, onUpdate }) {
 
       {generating ? (
         <div className="flex aspect-[3/4] max-h-[440px] w-full flex-col items-center justify-center gap-3 rounded-xl poster-shimmer" data-testid="poster-generating">
-          <Sparkles size={22} className="text-[hsl(var(--primary))]" />
+          <Sparkles size={22} className="text-[hsl(var(--primary-text))]" />
           <p className="px-6 text-center text-sm font-medium text-foreground/70">
             Utsav is painting your poster… takes ~30 seconds
           </p>
@@ -55,14 +55,14 @@ export function PosterModule({ event, onUpdate }) {
           />
           <div className="mt-4 flex justify-center">
             <a href={posterUrl} download={`${event.slug}-poster`} target="_blank" rel="noopener noreferrer">
-              <Button data-testid="poster-download-button" variant="outline" className="rounded-xl gap-2 border-[hsl(var(--primary))] text-[hsl(var(--primary))] hover:bg-[hsl(var(--secondary))]">
+              <Button data-testid="poster-download-button" variant="outline" className="rounded-xl gap-2 border-[hsl(var(--primary-text))] text-[hsl(var(--primary-text))] hover:bg-[hsl(var(--secondary))]">
                 <Download size={15} /> Download poster
               </Button>
             </a>
           </div>
         </div>
       ) : (
-        <div className="flex aspect-[3/4] max-h-[440px] w-full flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-[hsl(var(--utsav-gold))] bg-[hsl(38_92%_55%/0.06)]">
+        <div className="flex aspect-[3/4] max-h-[440px] w-full flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-[hsl(var(--utsav-gold))] bg-[hsl(var(--utsav-gold)/0.08)]">
           <ImageIcon size={26} className="text-[hsl(var(--utsav-gold))]" />
           <p className="max-w-[240px] px-4 text-center text-sm text-muted-foreground">
             Generate a shareable AI poster with your event name, date & theme.

@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Flame, Send, Sparkles, ArrowLeft } from "lucide-react";
+import { Flame, Send, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Progress } from "@/components/ui/progress";
 import { ClarifyingCards, answersSummary } from "@/components/utsav/ClarifyingCards";
 import { API } from "@/lib/utsav";
 
@@ -31,8 +32,15 @@ export default function Planner() {
   const [assembling, setAssembling] = useState(false);
   const [assemblyStep, setAssemblyStep] = useState(0);
   const [composer, setComposer] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const startedRef = useRef(false);
   const bottomRef = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const initialMessage = useMemo(
     () => location.state?.initialMessage || sessionStorage.getItem("utsav_initial") || "",
@@ -112,7 +120,7 @@ export default function Planner() {
 
   if (assembling) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-white bg-[radial-gradient(1000px_circle_at_50%_0%,hsl(36_95%_50%/0.08),transparent_60%)] px-6" data-testid="planner-assembling">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-background bg-[radial-gradient(1000px_circle_at_50%_0%,hsl(var(--primary)/0.1),transparent_60%)] px-6" data-testid="planner-assembling">
         <div className="anim-rise flex h-20 w-20 items-center justify-center rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-[var(--shadow-md)]">
           <Flame size={34} />
         </div>
@@ -126,7 +134,7 @@ export default function Planner() {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="anim-rise h-14 rounded-xl border border-border bg-white shadow-[var(--shadow-sm)] poster-shimmer"
+              className="anim-rise h-14 rounded-xl bg-white shadow-[var(--shadow-sm)] poster-shimmer"
               style={{ animationDelay: `${300 + i * 300}ms` }}
             />
           ))}
@@ -136,11 +144,11 @@ export default function Planner() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-white bg-[radial-gradient(800px_circle_at_50%_-10%,hsl(36_95%_50%/0.06),transparent_55%)]">
+    <div className="flex min-h-screen flex-col bg-background bg-[radial-gradient(800px_circle_at_50%_-10%,hsl(var(--primary)/0.08),transparent_55%)]">
       {/* Header */}
-      <header className="sticky top-0 z-20 border-b border-border bg-[hsl(var(--background))]/90 backdrop-blur">
+      <header className={`sticky top-0 z-20 bg-[hsl(var(--background))]/90 backdrop-blur transition-shadow ${scrolled ? "shadow-[var(--shadow-sm)]" : ""}`}>
         <div className="mx-auto flex w-full max-w-[760px] items-center gap-3 px-4 py-3">
-          <button data-testid="planner-back-button" aria-label="Back to home" onClick={() => navigate("/")} className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white transition-colors hover:bg-[hsl(var(--secondary))]">
+          <button data-testid="planner-back-button" aria-label="Back to home" onClick={() => navigate("/")} className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary">
             <ArrowLeft size={16} />
           </button>
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]">
@@ -165,13 +173,13 @@ export default function Planner() {
                 data-testid={m.role === "user" ? "planner-user-bubble" : "planner-ai-bubble"}
                 className={
                   m.role === "user"
-                    ? "rounded-2xl rounded-br-md border border-border bg-[hsl(var(--secondary))] px-4 py-3 text-sm sm:text-base"
-                    : "rounded-2xl rounded-bl-md border border-border bg-white px-4 py-3 text-sm sm:text-base shadow-[var(--shadow-sm)]"
+                    ? "rounded-2xl rounded-br-md bg-secondary px-4 py-3 text-sm sm:text-base"
+                    : "rounded-2xl rounded-bl-md bg-white px-4 py-3 text-sm sm:text-base shadow-[var(--shadow-sm)]"
                 }
               >
                 {m.role === "assistant" && (
-                  <span className="mb-1 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-[hsl(var(--primary))]">
-                    <Sparkles size={11} /> Utsav
+                  <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.08em] text-[hsl(var(--primary-text))]">
+                    Utsav
                   </span>
                 )}
                 {m.text}
@@ -180,13 +188,13 @@ export default function Planner() {
           ))}
 
           {loading && (
-            <div className="self-start rounded-2xl rounded-bl-md border border-border bg-white px-4 py-3 shadow-[var(--shadow-sm)]" data-testid="planner-thinking">
-              <span className="mb-1 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-[hsl(var(--primary))]">
-                <Sparkles size={11} /> Utsav soch raha hai
+            <div className="self-start rounded-2xl rounded-bl-md bg-white px-4 py-3 shadow-[var(--shadow-sm)]" data-testid="planner-thinking">
+              <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.08em] text-[hsl(var(--primary-text))]">
+                Utsav soch raha hai
               </span>
               <span className="flex gap-1 pt-1">
                 {[0, 1, 2].map((i) => (
-                  <span key={i} className="utsav-dot inline-block h-2 w-2 rounded-full bg-[hsl(var(--accent))]" />
+                  <span key={i} className="utsav-dot inline-block h-2 w-2 rounded-full bg-primary" />
                 ))}
               </span>
             </div>
@@ -201,26 +209,31 @@ export default function Planner() {
       </main>
 
       {/* Bottom bar */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-[hsl(var(--background))]/95 backdrop-blur">
+      <div className="fixed inset-x-0 bottom-0 z-20 bg-[hsl(var(--background))]/95 shadow-[var(--shadow-sm)] backdrop-blur">
         <div className="mx-auto w-full max-w-[760px] px-4 py-3">
           {cards.length > 0 && !loading ? (
-            <div className="flex items-center gap-3">
-              <p className="text-xs text-muted-foreground flex-1">
-                {answeredCount}/{cards.length} answered
-              </p>
-              {!allAnswered && answeredCount > 0 && (
-                <Button data-testid="planner-skip-button" variant="ghost" onClick={() => submitAnswers(true)} className="text-muted-foreground">
-                  Skip rest
+            <div className="flex flex-col gap-2.5">
+              <div className="flex items-center gap-3">
+                <Progress value={(answeredCount / cards.length) * 100} className="h-1.5 flex-1 bg-primary/15" />
+                <span className="shrink-0 text-xs font-medium text-muted-foreground">
+                  {answeredCount}/{cards.length}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                {!allAnswered && answeredCount > 0 && (
+                  <Button data-testid="planner-skip-button" variant="ghost" onClick={() => submitAnswers(true)} className="text-muted-foreground">
+                    Skip rest
+                  </Button>
+                )}
+                <Button
+                  data-testid="planner-continue-button"
+                  disabled={!allAnswered && answeredCount === 0}
+                  onClick={() => submitAnswers(!allAnswered)}
+                  className="flex-1 rounded-xl bg-primary px-6 text-primary-foreground shadow-[var(--shadow-md)] hover:bg-primary/90"
+                >
+                  Continue
                 </Button>
-              )}
-              <Button
-                data-testid="planner-continue-button"
-                disabled={!allAnswered && answeredCount === 0}
-                onClick={() => submitAnswers(!allAnswered)}
-                className="rounded-xl bg-[hsl(var(--primary))] px-6 text-[hsl(var(--primary-foreground))] shadow-[var(--shadow-md)] hover:bg-[hsl(var(--primary))]/90"
-              >
-                Continue
-              </Button>
+              </div>
             </div>
           ) : (
             <div className="flex items-end gap-2">
