@@ -22,6 +22,7 @@ function Chip({ selected, onClick, children, testId, multi }) {
     <button
       type="button"
       data-testid={testId}
+      aria-pressed={selected}
       onClick={onClick}
       className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium shadow-[var(--shadow-sm)] transition-colors active:scale-[0.98] ${
         selected

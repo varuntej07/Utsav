@@ -42,7 +42,9 @@ export default function Landing() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`${API}/demo`).then((r) => setDemo(r.data)).catch(() => {});
+    axios.get(`${API}/demo`).then((r) => setDemo(r.data)).catch((e) => {
+      console.error("Failed to load demo event:", e);
+    });
   }, []);
 
   const start = () => {

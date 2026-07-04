@@ -1,5 +1,5 @@
 """Seed the gorgeous demo North Indian wedding event. Idempotent.
-Run: cd /app/backend && python seed.py
+Run: cd backend && python seed.py
 """
 import asyncio
 import os
@@ -15,7 +15,7 @@ ROOT = Path(__file__).parent
 load_dotenv(ROOT / ".env")
 
 SLUG = "simran-weds-arjun"
-POSTER_SRC = Path("/app/tests/poc_poster.png")
+POSTER_SRC = ROOT.parent / "tests" / "poc_poster.png"
 POSTER_DIR = ROOT / "static" / "posters"
 
 
